@@ -7,7 +7,6 @@ import { shuffle } from "@/lib/shuffle";
 export type DeckCard = {
   instanceId: string;
   partnerId: string;
-  pairKey: string;
 };
 
 export type GamePhase = "start" | "playing" | "won";
@@ -21,13 +20,10 @@ function buildDeck({ pairs = PAIRS_PER_GAME }: BuildDeckOptions = {}): {
   activePartners: Partner[];
 } {
   const activePartners = partners.slice(0, pairs);
-  const doubled: DeckCard[] = activePartners.flatMap((p, idx) => {
-    const pairKey = `${p.id}-${idx}`;
-    return [
-      { instanceId: `${p.id}-a-${idx}`, partnerId: p.id, pairKey },
-      { instanceId: `${p.id}-b-${idx}`, partnerId: p.id, pairKey },
-    ];
-  });
+  const doubled: DeckCard[] = activePartners.flatMap((p, idx) => [
+    { instanceId: `${p.id}-a-${idx}`, partnerId: p.id },
+    { instanceId: `${p.id}-b-${idx}`, partnerId: p.id },
+  ]);
   return { deck: shuffle(doubled), activePartners };
 }
 
@@ -35,7 +31,7 @@ export type UseGameReturn = {
   phase: GamePhase;
   deck: DeckCard[];
   flippedIndices: number[];
-  matchedPairKeys: Set<string>;
+  matchedInstanceIds: Set<string>;
   attempts: number;
   elapsedMs: number;
   locked: boolean;
@@ -57,7 +53,7 @@ export function useGame(): UseGameReturn {
   const [phase, setPhase] = useState<GamePhase>("start");
   const [{ deck, activePartners }, setBuilt] = useState(() => buildDeck());
   const [flippedIndices, setFlippedIndices] = useState<number[]>([]);
-  const [matchedPairKeys, setMatchedPairKeys] = useState<Set<string>>(
+  const [matchedInstanceIds, setMatchedInstanceIds] = useState<Set<string>>(
     () => new Set(),
   );
   const [attempts, setAttempts] = useState(0);
@@ -106,7 +102,7 @@ export function useGame(): UseGameReturn {
     const fresh = buildDeck();
     setBuilt(fresh);
     setFlippedIndices([]);
-    setMatchedPairKeys(new Set());
+    setMatchedInstanceIds(new Set());
     setAttempts(0);
     setElapsedMs(0);
     setLocked(false);
@@ -129,11 +125,14 @@ export function useGame(): UseGameReturn {
     setActivePopup(null);
   }, []);
 
+  const totalPairs = deck.length / 2;
+  const matchedCount = matchedInstanceIds.size / 2;
+
   // Watch matched count — transition to won after last popup dismisses
   useEffect(() => {
     if (
       phase === "playing" &&
-      matchedPairKeys.size === activePartners.length &&
+      matchedInstanceIds.size === deck.length &&
       activePopup == null
     ) {
       schedule(() => {
@@ -143,8 +142,8 @@ export function useGame(): UseGameReturn {
     }
   }, [
     phase,
-    matchedPairKeys,
-    activePartners.length,
+    matchedInstanceIds,
+    deck.length,
     activePopup,
     schedule,
     startedAt,
@@ -157,7 +156,7 @@ export function useGame(): UseGameReturn {
       if (activePopup) return;
       const card = deck[index];
       if (!card) return;
-      if (matchedPairKeys.has(card.pairKey)) return;
+      if (matchedInstanceIds.has(card.instanceId)) return;
       if (flippedIndices.includes(index)) return;
 
       const next = [...flippedIndices, index];
@@ -170,11 +169,12 @@ export function useGame(): UseGameReturn {
       const [i1, i2] = next;
       const c1 = deck[i1];
       const c2 = deck[i2];
-      if (c1.pairKey === c2.pairKey) {
+      if (c1.partnerId === c2.partnerId) {
         schedule(() => {
-          setMatchedPairKeys((prev) => {
+          setMatchedInstanceIds((prev) => {
             const n = new Set(prev);
-            n.add(c1.pairKey);
+            n.add(c1.instanceId);
+            n.add(c2.instanceId);
             return n;
           });
           setFlippedIndices([]);
@@ -194,7 +194,7 @@ export function useGame(): UseGameReturn {
       locked,
       activePopup,
       deck,
-      matchedPairKeys,
+      matchedInstanceIds,
       flippedIndices,
       partnerIndex,
       schedule,
@@ -214,13 +214,13 @@ export function useGame(): UseGameReturn {
     phase,
     deck,
     flippedIndices,
-    matchedPairKeys,
+    matchedInstanceIds,
     attempts,
     elapsedMs,
     locked,
     activePopup,
-    totalPairs: activePartners.length,
-    matchedCount: matchedPairKeys.size,
+    totalPairs,
+    matchedCount,
     start,
     replay,
     flipCard,
