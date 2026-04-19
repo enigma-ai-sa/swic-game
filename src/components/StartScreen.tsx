@@ -12,7 +12,7 @@ export function StartScreen({ onStart }: Props) {
       key="start"
       initial={{ opacity: 0, y: 12 }}
       animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: -12 }}
+      exit={{ opacity: 0 }}
       transition={{ duration: 0.35 }}
       className="flex min-h-[100svh] flex-col items-center px-8 py-16 text-center"
     >
