@@ -35,24 +35,14 @@ export function Card({
         transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
       >
         {/* Back face */}
-        <div className="absolute inset-0 [backface-visibility:hidden] rounded-3xl bg-gradient-to-br from-[#38bdf8] to-[#7dd3fc] shadow-lg ring-1 ring-white/40 flex items-center justify-center overflow-hidden">
+        <div className="absolute inset-0 [backface-visibility:hidden] rounded-3xl bg-gradient-to-br from-[#8dddff] to-[#b5e8ff] shadow-lg ring-1 ring-white/40 flex items-center justify-center overflow-hidden">
           <div className="absolute -inset-4 opacity-20 bg-[radial-gradient(circle_at_30%_20%,#ffffff_0%,transparent_45%)]" />
-          <svg
-            viewBox="0 0 100 100"
-            className="h-[55%] w-[55%] text-white/90"
+          <img
+            src="/waterDroplet.png"
+            alt=""
             aria-hidden="true"
-          >
-            <path
-              d="M50 10 C 70 35, 82 55, 82 70 a32 32 0 1 1 -64 0 C 18 55, 30 35, 50 10 Z"
-              fill="currentColor"
-              opacity="0.85"
-            />
-            <path
-              d="M50 25 C 64 45, 73 60, 73 70 a23 23 0 1 1 -46 0 C 27 60, 36 45, 50 25 Z"
-              fill="var(--swic-blue)"
-              opacity="0.35"
-            />
-          </svg>
+            className="h-[55%] w-[55%] object-contain"
+          />
         </div>
 
         {/* Front face */}

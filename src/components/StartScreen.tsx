@@ -18,23 +18,15 @@ export function StartScreen({ onStart }: Props) {
       className="flex min-h-[100svh] flex-col items-center px-8 py-16 text-center"
     >
       <div className="flex flex-1 flex-col items-center justify-center gap-10">
-        <motion.div
+        <motion.img
+          src="/waterDroplet.png"
+          alt=""
+          aria-hidden="true"
           initial={{ scale: 0.9, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
           transition={{ delay: 0.1, type: "spring", stiffness: 180 }}
-          className="flex h-28 w-28 items-center justify-center rounded-3xl bg-gradient-to-br from-[var(--swic-blue)] to-[var(--swic-blue-light)] shadow-xl"
-        >
-          <svg
-            viewBox="0 0 100 100"
-            className="h-16 w-16 text-white"
-            aria-hidden="true"
-          >
-            <path
-              d="M50 10 C 70 35, 82 55, 82 70 a32 32 0 1 1 -64 0 C 18 55, 30 35, 50 10 Z"
-              fill="currentColor"
-            />
-          </svg>
-        </motion.div>
+          className="h-32 w-32 object-contain"
+        />
 
         <div className="flex flex-col items-center gap-4">
           <h1 className="text-5xl font-extrabold leading-tight text-[var(--swic-blue)] sm:text-6xl">
