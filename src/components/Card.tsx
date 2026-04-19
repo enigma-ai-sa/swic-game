@@ -35,7 +35,7 @@ export function Card({
         transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
       >
         {/* Back face */}
-        <div className="absolute inset-0 [backface-visibility:hidden] rounded-3xl bg-gradient-to-br from-[var(--swic-blue)] to-[var(--swic-blue-light)] shadow-lg ring-1 ring-white/20 flex items-center justify-center overflow-hidden">
+        <div className="absolute inset-0 [backface-visibility:hidden] rounded-3xl bg-gradient-to-br from-[#38bdf8] to-[#7dd3fc] shadow-lg ring-1 ring-white/40 flex items-center justify-center overflow-hidden">
           <div className="absolute -inset-4 opacity-20 bg-[radial-gradient(circle_at_30%_20%,#ffffff_0%,transparent_45%)]" />
           <svg
             viewBox="0 0 100 100"
@@ -73,7 +73,7 @@ export function Card({
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              className="pointer-events-none absolute inset-0 rounded-3xl ring-4 ring-emerald-400/70"
+              className="pointer-events-none absolute inset-0 rounded-3xl ring-4 ring-[var(--swic-blue-light)]/80"
             />
           )}
         </div>

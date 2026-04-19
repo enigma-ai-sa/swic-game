@@ -1,10 +1,10 @@
 @import "tailwindcss";
 
 :root {
-  --swic-blue: #0b3c8c;
-  --swic-blue-light: #1e6fd9;
+  --swic-blue: #0891b2;
+  --swic-blue-light: #22d3ee;
   --swic-white: #ffffff;
-  --swic-bg: #f4f8fd;
+  --swic-bg: #ecfeff;
   --background: var(--swic-bg);
   --foreground: #0f172a;
 }
