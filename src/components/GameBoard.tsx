@@ -5,6 +5,7 @@ import { Card } from "@/components/Card";
 import { EndScreen } from "@/components/EndScreen";
 import { HUD } from "@/components/HUD";
 import { MatchPopup } from "@/components/MatchPopup";
+import { PoweredBy } from "@/components/PoweredBy";
 import type { UseGameReturn } from "@/hooks/useGame";
 
 type Props = {
@@ -60,6 +61,8 @@ export function GameBoard({ game }: Props) {
           );
         })}
       </div>
+
+      <PoweredBy />
 
       <MatchPopup partner={game.activePopup} onDismiss={game.dismissPopup} />
     </motion.section>

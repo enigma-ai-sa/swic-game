@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { PoweredBy } from "@/components/PoweredBy";
 
 type Props = {
   onStart: () => void;
@@ -49,10 +50,14 @@ export function StartScreen({ onStart }: Props) {
         whileTap={{ scale: 0.97 }}
         type="button"
         onClick={onStart}
-        className="w-full max-w-3xl rounded-full bg-[#7dd3fc] py-6 text-3xl font-bold text-[#0c4a6e] shadow-xl transition hover:bg-[#bae6fd]"
+        className="w-full max-w-3xl rounded-full bg-[#7dd3fc] pt-5 pb-4 text-2xl font-bold text-[#0c4a6e] shadow-xl transition hover:bg-[#bae6fd]"
       >
         ابدأ
       </motion.button>
+
+      <div className="mt-10">
+        <PoweredBy />
+      </div>
     </motion.section>
   );
 }

@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { PoweredBy } from "@/components/PoweredBy";
 
 type Props = {
   attempts: number;
@@ -71,6 +72,8 @@ export function EndScreen({ attempts, elapsedMs, onReplay }: Props) {
       >
         إعادة اللعب
       </motion.button>
+
+      <PoweredBy />
     </motion.section>
   );
 }
