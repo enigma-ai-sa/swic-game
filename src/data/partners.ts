@@ -57,13 +57,12 @@ export const partners: Partner[] = [
       "برنامج يستهدف تسريع نمو الشركات الناشئة ذات الحلول الناجحة في قطاع المياه، وربطها بالمستثمرين والأسواق، مع التركيز على التوسع التجاري والتطبيق العملي للحلول.",
     logo: `${LOGO_DIR}/Tamimi-energy.png`,
   },
-  // TODO: replace this placeholder once the 8th partner logo + description are provided.
   {
-    id: "placeholder-8",
-    name: "شريك الابتكار",
+    id: "tamimi",
+    name: "مسرعة التميمي",
     description:
-      "سيتم تحديث هذا الشريك بالمحتوى الرسمي قريبًا. يمكن استبدال الشعار والوصف من ملف src/data/partners.ts دون أي تعديل على المكوّنات.",
-    logo: `${LOGO_DIR}/placeholder.svg`,
+      "برنامج يستهدف تسريع نمو الشركات الناشئة ذات الحلول الناجحة في قطاع المياه، وربطها بالمستثمرين والأسواق، مع التركيز على التوسع التجاري والتطبيق العملي للحلول.",
+    logo: `${LOGO_DIR}/Tamimi-energy.png`,
   },
 ];
 
