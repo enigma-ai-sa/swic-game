@@ -48,7 +48,7 @@ export function GameBoard({ game }: Props) {
         {game.deck.map((card, index) => {
           const partner = game.getPartner(card.partnerId);
           const isFlipped = game.flippedIndices.includes(index);
-          const isMatched = game.matchedPartnerIds.has(card.partnerId);
+          const isMatched = game.matchedPairKeys.has(card.pairKey);
           return (
             <Card
               key={card.instanceId}

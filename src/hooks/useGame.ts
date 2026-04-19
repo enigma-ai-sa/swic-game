@@ -7,6 +7,7 @@ import { shuffle } from "@/lib/shuffle";
 export type DeckCard = {
   instanceId: string;
   partnerId: string;
+  pairKey: string;
 };
 
 export type GamePhase = "start" | "playing" | "won";
@@ -20,10 +21,13 @@ function buildDeck({ pairs = PAIRS_PER_GAME }: BuildDeckOptions = {}): {
   activePartners: Partner[];
 } {
   const activePartners = partners.slice(0, pairs);
-  const doubled: DeckCard[] = activePartners.flatMap((p, idx) => [
-    { instanceId: `${p.id}-a-${idx}`, partnerId: p.id },
-    { instanceId: `${p.id}-b-${idx}`, partnerId: p.id },
-  ]);
+  const doubled: DeckCard[] = activePartners.flatMap((p, idx) => {
+    const pairKey = `${p.id}-${idx}`;
+    return [
+      { instanceId: `${p.id}-a-${idx}`, partnerId: p.id, pairKey },
+      { instanceId: `${p.id}-b-${idx}`, partnerId: p.id, pairKey },
+    ];
+  });
   return { deck: shuffle(doubled), activePartners };
 }
 
@@ -31,7 +35,7 @@ export type UseGameReturn = {
   phase: GamePhase;
   deck: DeckCard[];
   flippedIndices: number[];
-  matchedPartnerIds: Set<string>;
+  matchedPairKeys: Set<string>;
   attempts: number;
   elapsedMs: number;
   locked: boolean;
@@ -53,7 +57,7 @@ export function useGame(): UseGameReturn {
   const [phase, setPhase] = useState<GamePhase>("start");
   const [{ deck, activePartners }, setBuilt] = useState(() => buildDeck());
   const [flippedIndices, setFlippedIndices] = useState<number[]>([]);
-  const [matchedPartnerIds, setMatchedPartnerIds] = useState<Set<string>>(
+  const [matchedPairKeys, setMatchedPairKeys] = useState<Set<string>>(
     () => new Set(),
   );
   const [attempts, setAttempts] = useState(0);
@@ -102,7 +106,7 @@ export function useGame(): UseGameReturn {
     const fresh = buildDeck();
     setBuilt(fresh);
     setFlippedIndices([]);
-    setMatchedPartnerIds(new Set());
+    setMatchedPairKeys(new Set());
     setAttempts(0);
     setElapsedMs(0);
     setLocked(false);
@@ -129,7 +133,7 @@ export function useGame(): UseGameReturn {
   useEffect(() => {
     if (
       phase === "playing" &&
-      matchedPartnerIds.size === activePartners.length &&
+      matchedPairKeys.size === activePartners.length &&
       activePopup == null
     ) {
       schedule(() => {
@@ -139,7 +143,7 @@ export function useGame(): UseGameReturn {
     }
   }, [
     phase,
-    matchedPartnerIds,
+    matchedPairKeys,
     activePartners.length,
     activePopup,
     schedule,
@@ -153,7 +157,7 @@ export function useGame(): UseGameReturn {
       if (activePopup) return;
       const card = deck[index];
       if (!card) return;
-      if (matchedPartnerIds.has(card.partnerId)) return;
+      if (matchedPairKeys.has(card.pairKey)) return;
       if (flippedIndices.includes(index)) return;
 
       const next = [...flippedIndices, index];
@@ -166,11 +170,11 @@ export function useGame(): UseGameReturn {
       const [i1, i2] = next;
       const c1 = deck[i1];
       const c2 = deck[i2];
-      if (c1.partnerId === c2.partnerId) {
+      if (c1.pairKey === c2.pairKey) {
         schedule(() => {
-          setMatchedPartnerIds((prev) => {
+          setMatchedPairKeys((prev) => {
             const n = new Set(prev);
-            n.add(c1.partnerId);
+            n.add(c1.pairKey);
             return n;
           });
           setFlippedIndices([]);
@@ -190,7 +194,7 @@ export function useGame(): UseGameReturn {
       locked,
       activePopup,
       deck,
-      matchedPartnerIds,
+      matchedPairKeys,
       flippedIndices,
       partnerIndex,
       schedule,
@@ -210,13 +214,13 @@ export function useGame(): UseGameReturn {
     phase,
     deck,
     flippedIndices,
-    matchedPartnerIds,
+    matchedPairKeys,
     attempts,
     elapsedMs,
     locked,
     activePopup,
     totalPairs: activePartners.length,
-    matchedCount: matchedPartnerIds.size,
+    matchedCount: matchedPairKeys.size,
     start,
     replay,
     flipCard,
