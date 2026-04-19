@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { PAIRS_PER_GAME, type Partner, partners } from "@/data/partners";
+import { playMatchChime } from "@/lib/matchSound";
 import { shuffle } from "@/lib/shuffle";
 
 export type DeckCard = {
@@ -170,6 +171,7 @@ export function useGame(): UseGameReturn {
       const c1 = deck[i1];
       const c2 = deck[i2];
       if (c1.partnerId === c2.partnerId) {
+        playMatchChime();
         schedule(() => {
           setMatchedInstanceIds((prev) => {
             const n = new Set(prev);
