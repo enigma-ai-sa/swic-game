@@ -118,8 +118,8 @@ export function useGame(): UseGameReturn {
 
   const replay = useCallback(() => {
     reset();
-    setPhase("playing");
-    setStartedAt(Date.now());
+    setPhase("start");
+    setStartedAt(null);
   }, [reset]);
 
   const dismissPopup = useCallback(() => {
