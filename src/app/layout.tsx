@@ -1,11 +1,14 @@
 import type { Metadata, Viewport } from "next";
-import { Tajawal } from "next/font/google";
+import localFont from "next/font/local";
 import "./globals.css";
 
-const tajawal = Tajawal({
+const swcc = localFont({
+  src: [
+    { path: "./fonts/SWCC-Regular.ttf", weight: "400", style: "normal" },
+    { path: "./fonts/SWCC-Medium.ttf", weight: "500", style: "normal" },
+    { path: "./fonts/SWCC-Bold.ttf", weight: "700", style: "normal" },
+  ],
   variable: "--font-arabic",
-  subsets: ["arabic", "latin"],
-  weight: ["400", "500", "700", "800"],
   display: "swap",
 });
 
@@ -31,7 +34,7 @@ export default function RootLayout({
     <html
       lang="ar"
       dir="rtl"
-      className={`${tajawal.variable} h-full antialiased`}
+      className={`${swcc.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">{children}</body>
     </html>
