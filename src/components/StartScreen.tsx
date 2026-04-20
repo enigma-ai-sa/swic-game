@@ -18,7 +18,7 @@ export function StartScreen({ onStart }: Props) {
       className="relative flex min-h-svh flex-col items-center px-8 py-16 text-center"
     >
       <img
-        src="/SWIC logos/saudi-water.jpg"
+        src="/SWIC logos/saudi-water.png"
         alt="Saudi Water Innovation Center"
         className="absolute top-6 left-6 h-24 w-24 object-contain sm:h-32 sm:w-32"
       />
