@@ -15,8 +15,14 @@ export function StartScreen({ onStart }: Props) {
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0 }}
       transition={{ duration: 0.35 }}
-      className="relative flex min-h-[100svh] flex-col items-center px-8 py-16 text-center"
+      className="relative flex min-h-svh flex-col items-center px-8 py-16 text-center"
     >
+      <img
+        src="/SWIC logos/saudi-water.jpg"
+        alt="Saudi Water Innovation Center"
+        className="absolute top-6 left-6 h-24 w-24 object-contain sm:h-32 sm:w-32"
+      />
+
       <img
         src="/logo.png"
         alt="Saudi Water Authority"
