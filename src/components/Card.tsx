@@ -35,7 +35,7 @@ export function Card({
         transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
       >
         {/* Back face */}
-        <div className="absolute inset-0 [backface-visibility:hidden] rounded-3xl bg-gradient-to-br from-[#8dddff] to-[#b5e8ff] shadow-lg ring-1 ring-white/40 flex items-center justify-center overflow-hidden">
+        <div className="absolute inset-0 [backface-visibility:hidden] rounded-3xl bg-gradient-to-br from-[#c3e8f3] to-[#1e6ab4] shadow-lg ring-1 ring-white/40 flex items-center justify-center overflow-hidden">
           <div className="absolute -inset-4 opacity-20 bg-[radial-gradient(circle_at_30%_20%,#ffffff_0%,transparent_45%)]" />
           <img
             src="/waterDroplet.png"

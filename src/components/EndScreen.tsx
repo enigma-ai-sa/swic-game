@@ -32,7 +32,7 @@ export function EndScreen({ attempts, elapsedMs, onReplay }: Props) {
         initial={{ scale: 0.6, rotate: -12, opacity: 0 }}
         animate={{ scale: 1, rotate: 0, opacity: 1 }}
         transition={{ type: "spring", stiffness: 200, damping: 14 }}
-        className="grid h-28 w-28 place-items-center rounded-full bg-[#7dd3fc] text-[#0c4a6e] shadow-xl"
+        className="grid h-28 w-28 place-items-center rounded-full bg-[#c3e8f3] text-[#114c85] shadow-xl"
       >
         <svg
           viewBox="0 0 24 24"
@@ -68,7 +68,7 @@ export function EndScreen({ attempts, elapsedMs, onReplay }: Props) {
         whileHover={{ scale: 1.03 }}
         type="button"
         onClick={onReplay}
-        className="rounded-full bg-[#7dd3fc] px-16 py-5 text-2xl font-bold text-[#0c4a6e] shadow-xl transition hover:bg-[#bae6fd]"
+        className="rounded-full bg-[#c3e8f3] px-16 py-5 text-2xl font-bold text-[#114c85] shadow-xl transition hover:bg-white"
       >
         إعادة اللعب
       </motion.button>

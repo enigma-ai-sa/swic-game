@@ -42,7 +42,7 @@ export function StartScreen({ onStart }: Props) {
         whileTap={{ scale: 0.97 }}
         type="button"
         onClick={onStart}
-        className="w-full max-w-3xl rounded-full bg-[#7dd3fc] pt-5 pb-4 text-2xl font-bold text-[#0c4a6e] shadow-xl transition hover:bg-[#bae6fd]"
+        className="w-full max-w-3xl rounded-full bg-[#c3e8f3] pt-5 pb-4 text-2xl font-bold text-[#114c85] shadow-xl transition hover:bg-white"
       >
         ابدأ
       </motion.button>
